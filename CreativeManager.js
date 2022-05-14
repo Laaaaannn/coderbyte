@@ -38,9 +38,7 @@ class CreativeManager {
    * send logs
    * @param {object} creative
    */
-  sendLogs(creative) {
-    const { id, name, adType, size, price, placementId } = creative;
-
+  sendLogs({ id, name, adType, size, price, placementId}) {
     new Logger().send('Creative rendered', {
       creative_id: id,
       creative_name: name,
@@ -67,7 +65,8 @@ class CreativeManager {
       const { verticalHtml, horizontalHtml, vertical, horizontal, takeover } = hybrid;
       const notAllowedTakeovers = [2233, 45435, 2352, 6683];
 
-      this.sendLogs(creative);
+      this.sendLogs({id, name, adType, size, price, placementId});
+      
       CreativeAnalyzer.run({ id, name, type: adType, price });
 
       if ((adType === 'takeover' || takeover) && notAllowedTakeovers.indexOf(takeoverId) === -1) {
